@@ -1,0 +1,24 @@
+<h1>{{ quiz.subject }}</h1>
+<h2>{{ quiz.topic }}</h2>
+
+
+<form action="{% url 'quizes:answer' quiz.id %}" method="post">
+{% csrf_token %}
+
+{% for question in quiz.question_set.all %}
+<div>
+    <p><strong>Питання {{forloop.counter}}</strong> {{question.question_text}}</p> 
+    {% for choice in question.choice_set.all %}
+        {% if question.multichoice %}
+        <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
+        {% else %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
+        {% endif %}
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor%}
+<div>
+{% endfor %}
+<hr/>
+
+<input type="submit" value="Оцінити"/>
+</form>

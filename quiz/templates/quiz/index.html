@@ -1,0 +1,10 @@
+<h1>Доступні опитування</h1>
+{% if quizes_list %}
+    <ul>
+    {% for quiz in quizes_list %}
+         <li>{{quiz.subject}} &mdash; <a href="/quizes/{{ quiz.id }}/">{{quiz.topic}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}   
+    <p>Немає доступних опитувань</p>
+{% endif %}
